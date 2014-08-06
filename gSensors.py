@@ -3,15 +3,18 @@ class analogSensor(object):
 	   Goes from a value of 0-1024"""
 	def __init__(self,port):
 		self.port=port
-		self.value=
+		self.value=sample()
 	
 	def sample(self):
-	"""Get a single value from the sensor"""
+		"""Returns the current value of the sensor """
 		pass
 	
 	def avgSample(self,numSamples):
-	"""Gets a number of samples and averages them"""
-		pass
+		"""Returns the average of a number of samples """
+		ret=0
+		for i in range(numSamples):
+			ret+=sample()
+		return (ret/numSamples)
 
 class digitalSensor(object):
 	"""Generic Digital Sensor Class
@@ -19,3 +22,6 @@ class digitalSensor(object):
 	def __init__(self,port):
 		self.port=port
 		self.value=0
+
+	def sample(self):
+		pass
