@@ -25,11 +25,13 @@ import gRobot
 # 6. brainstorm how to draw the bot
 #	a. have position as part of the members
 #	b. make sprites for each component?
+#		i. make sprites
 # 7. write docs
 #	a. get better at LaTeX
 # 8. Make sure to commit
 #	a. at least make an effort at good commit messages
-# 9. 
+# 9. write code to make courses/fields
+#	a. write how the bot will interact with these
 #
 # 
 #

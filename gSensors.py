@@ -25,3 +25,11 @@ class digitalSensor(object):
 
 	def sample(self):
 		pass
+
+
+class rangeFinder(analogSensor):
+	def __init__(self,port):
+		super(rangeFinder,self).__init__(port)
+	def sample(self):
+	# some math function will define the value returned	
+		pass

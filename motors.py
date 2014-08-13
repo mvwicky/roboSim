@@ -9,6 +9,9 @@ class motor(object):
 		self.port=port
 		self.positon=0
 		self.wheelRad=wheelRad
+		self.ticks=ticks
+		#self.distPerTick
+		#self.sprite
 		self.tolerance=tolerance
 
 	def moveAtVelocity(self,velocity):
@@ -30,11 +33,16 @@ class motor(object):
 		pass
 
 	def zeroMotor(self):
+	"""Sets themotor position back to zero"""
+		pass
+
+	def getPosition(self):
+	"""Returns the motor position"""
 		pass
 	
 	def mav(self,velocity):
-		pass
+		return self.moveAtVelocity(velocity)
 	def mrp(self,velocity,position):
-		pass
+		return self.moveRelativePosition(velocity,position)
 	def mtp(self,velocity,position):
-		pass
+		return self.moveToPosition(velocity,position)

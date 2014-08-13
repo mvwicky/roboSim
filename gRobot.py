@@ -23,6 +23,7 @@ class robot(object):
 	#		array of servo objects
 	# 	aSensors: analog sensors
 	# 	dSensors: digital sensors
+	
 		self.servosEnabled=False
 		self.dMotors=[]
 		self.gMotors=[]
