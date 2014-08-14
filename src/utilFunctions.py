@@ -1,11 +1,27 @@
-import math
 import os
 import sys
 import random
 
+from math import pi
+from math import sqrt
+from math import atan
+
 from sfml import Vector2
 from sfml import Vector3
 from sfml import Color
+
+class line(object):
+	"""class for storing two points"""
+	def __init__(self,x0,y0,x1=None,y1=None):
+		if vecCheck(x0) and vecCheck(y0) and x1==None and y1==None:
+		# two arguments: two points
+			self.p0=x0
+			self.p1=y0
+		elif x1!=None and y1!=None:
+		# fout arguments: four coordinates
+			self.p0=[x0,y0]
+			self.p1=[x1,y1]
+
 
 def clear():
 # clears the console
@@ -58,16 +74,66 @@ def inXPlane(yCoord,tL,bR):
 			return True
 		else:
 			return False
-	elif not vecCheck(tL) or not vecCheck(bR):
-		print("Type(s) are wrong")
-		return False
+	else:
+		print("Invalid Argument(s)")
+		return -1
 
 
 def inYPlane(xCoord,tl,bR):
-	pass
+	if vecCheck(tL) and vecCheck(bR):
+		if (xCoord>=tL[0] and xCoord<=bR[0]):
+			return True
+		else:
+			return False
+	else:
+		print("Invalid Argument(s)")
+		return -1
 
 def inZPlane():
 	pass
 
 def pointIn(pVec,tL,bR):
+	if vecCheck(pVec) and vecCheck(tL) and vecCheck(bR):
+		if inXPlane(pVec[1],tL,bR) and inYPlane(pVec[0],tL,bR):
+			return True
+		else:
+			return False
+	else:
+		print("Invalid Argument(s)")
+		return -1
+
+def degToRad(deg):
+	rad=deg*(pi/180)
+	return rad
+
+def radToDeg(rad):
+	deg=rad*(180/pi)
+	return deg
+
+def calcLength(sPoint,ePoint=None):
+	if type(sPoint)==line and ePoint==None:
+	# one argument: a line object
+		return sqrt(((sPoint.p0[0]-sPoint.p1[0])**2)*((sPoint.p0[1]-sPoint.p1[1])**2))
+	elif vecCheck(sPoint) and vecCheck(ePoint):
+	# two arguemtns: two points
+		return sqrt(((sPoint[0]-ePoint[0])**2)*((sPoint[1]-ePoint[1])**2))
+	elif not vecCheck(sPoint) and not vecCheck(ePoint):
+		print("Invalid Argument(s)")
+		return -1
+
+def calcSlope(sPoint,ePoint=None):
+	if type(sPoint)==line and ePoint==None:
+	# one argument: a line object
+		return (sPoint.p0[1]-sPoint.p1[1])/(sPoint.p0[0]-sPoint.p1[0])
+	elif vecCheck(sPoint) and vecCheck(ePoint):
+	# two arguments: two points
+		return (sPoint[1]-ePoint[1])/(sPoint[0]-ePoint[0])
+	elif not vecCheck(sPoint) and not vecCheck(ePoint):
+		print("Invalid Argument(s)")
+		return -1
+
+def calcAngleRad(sPoint1,ePoint1,sPoint2=None,ePoint2=None):
+	pass
+
+def calcAngleDeg(sPoint1,ePoint1,sPoint2=None,ePoint2=None):
 	pass

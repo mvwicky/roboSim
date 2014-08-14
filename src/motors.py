@@ -23,6 +23,9 @@ class motor(object):
 			pass
 		self.tolerance=tolerance
 
+	def draw(self):
+		pass
+
 	def moveAtVelocity(self,velocity):
 		pass
 	

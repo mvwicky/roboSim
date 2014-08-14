@@ -9,7 +9,13 @@ class servo(object):
 		self.port=port
 		self.position=position
 		self.enabled=False
+		self.sprite=sprite
+
+
+	def draw(self):
+		pass
+
 	def setPosition(self,position):
 		pass
-	def moveToPosition(self,position):
+	def moveToPosition(self,position,step):
 		pass

@@ -37,7 +37,7 @@ class robot(object):
 		self.aSensors=[]  # array to store analog sensors
 		self.dSensors=[] # array to store digital sensors
 
-	def drawBot(self):
+	def draw(self):
 		pass
 
 	def addDriveMotors(self,lMot,rMot):

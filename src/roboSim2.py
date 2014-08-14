@@ -42,7 +42,7 @@ import interface
 def main():
 	print("Robo Sim v2")
 	try: 
-		robot.sample()
+		robot.draw()
 	except NameError:
 		print("Not a valid bot")
 
