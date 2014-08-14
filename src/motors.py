@@ -5,13 +5,22 @@ import math
 
 class motor(object):
 	"""Generic motor object"""
-	def __init__(self,port,wheelRad,ticks,tolerance=0):
+	def __init__(self,port,wheelRad,ticks,tolerance=0,sprite=None):
+		"""port:which port the motor is in
+		   wheelRad:the radius of the attached wheel (what if not a drive motor?)
+		   ticks:number of ticks per revolution
+		   tolerance:
+		   sprite:path to the sprite
+		"""
 		self.port=port
 		self.positon=0
 		self.wheelRad=wheelRad
 		self.ticks=ticks
 		#self.distPerTick
-		#self.sprite
+		if sprite==None:
+			pass
+		elif sprite!=None:
+			pass
 		self.tolerance=tolerance
 
 	def moveAtVelocity(self,velocity):
@@ -33,11 +42,11 @@ class motor(object):
 		pass
 
 	def zeroMotor(self):
-	"""Sets themotor position back to zero"""
+		"""Sets the motor position back to zero"""
 		pass
 
 	def getPosition(self):
-	"""Returns the motor position"""
+		"""Returns the motor position"""
 		pass
 	
 	def mav(self,velocity):

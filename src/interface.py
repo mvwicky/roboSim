@@ -7,7 +7,7 @@ import math
 from utilFunctions import *
 import gRobot
 
-class robotScreen(object):
+class robotScreen(sfml.RenderWindow):
 	"""Class for simulating the screen of the bot and the various outside buttons"""
 	def __init__(self):
 		pass

@@ -6,6 +6,7 @@ import math
 
 from utilFunctions import *
 import gRobot
+import interface
 
 #--------------------TODO--------------------#
 #
@@ -25,7 +26,7 @@ import gRobot
 # 6. brainstorm how to draw the bot
 #	a. have position as part of the members
 #	b. make sprites for each component?
-#		i. make sprites
+#		i. make  sprites
 # 7. write docs
 #	a. get better at LaTeX
 # 8. Make sure to commit

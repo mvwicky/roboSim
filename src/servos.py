@@ -5,7 +5,7 @@ import math
 
 class servo(object):
 	"""Generic Servo Object"""
-	def __init__(self,port,position=0):
+	def __init__(self,port,position=0,sprite=None):
 		self.port=port
 		self.position=position
 		self.enabled=False
