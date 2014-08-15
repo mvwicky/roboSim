@@ -5,7 +5,12 @@ import random
 import math
 
 from utilFunctions import *
+
 import gRobot
+import sensors
+import motors
+import servos
+
 import interface
 
 #--------------------TODO--------------------#
@@ -41,10 +46,47 @@ import interface
 
 def main():
 	print("Robo Sim v2")
+	print("")
+
+	window=interface.simScreen(1600,900)
+
+	config=(4,4,6,6)
+
+	link=gRobot.robot(config)
+
+	print link.config
+
+	servo0=servos.servo(0)
+	servo1=servos.servo(1)
+	servo2=servos.servo(2)
+	servo3=servos.servo(3)
+
+	link.addServo(servo3)
+	link.addServo(servo2)
+	link.addServo(servo0)
+	link.addServo(servo1)
+
+	for i in link.servos:
+		print i.port
+	
+	print '\n' ,  "Num Servos:" , len(link.servos)
+
+	print("")
+
 	try: 
 		robot.draw()
 	except NameError:
 		print("Not a valid bot")
 
+	while window.is_open:
+		window.clear(window.color)
+
+		for event in window.events:
+			if type(event)==sfml.CloseEvent:
+				window.close()
+
+		window.display()
+
+	print("")
 if __name__=='__main__':
 	main()

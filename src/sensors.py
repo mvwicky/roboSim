@@ -6,6 +6,9 @@ class analogSensor(object):
 		self.value=sample()
 		self.sprite=sprite
 
+	def update(self):
+		pass
+
 	def draw(self):
 		pass
 	

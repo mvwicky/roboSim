@@ -22,6 +22,24 @@ class line(object):
 			self.p0=[x0,y0]
 			self.p1=[x1,y1]
 
+class configs(object):
+	"""class that stores configurations for various things
+		basically an argument generator"""
+	def __init__(self):
+		self.link=(4,4,6,4)
+
+class sprite(object):
+	"""class that will store the image of a sprite as well
+	   as its bounding box and other info"""
+	def __init__(self,image,pos):
+		"""image: should be path to the image
+		   "pos: confusing"""
+		self.image=image
+		self.pos=pos
+		self.bounds=self.genBounds()
+	def genBounds(self):
+		pass
+
 
 def clear():
 # clears the console
@@ -89,7 +107,18 @@ def inYPlane(xCoord,tl,bR):
 		print("Invalid Argument(s)")
 		return -1
 
-def inZPlane():
+def touching(sPoint1,ePoint1,sPoint2=None,ePoint2=None):
+	"""tests whether or not two lines are touching"""
+	if type(sPoint1)==line and type(ePoint1)==line and sPoint2==None and ePoint2==None:
+		pass
+	elif vecCheck(sPoint1) and vecCheck(ePoint1) and vecCheck(sPoint2) and vecCheck(ePoint2):
+		pass
+	else:
+		print("Invalid Argument(s)")
+		return -1
+
+def pointInLine(point,sPoint,ePoint=None):
+	"""tests wheter or not a point is touching a line"""
 	pass
 
 def pointIn(pVec,tL,bR):

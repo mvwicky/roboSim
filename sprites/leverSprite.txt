@@ -1,0 +1,2 @@
+path=leverSprite.psd
+size=300x300

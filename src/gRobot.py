@@ -6,9 +6,9 @@ import math
 
 from utilFunctions import *
 
-from gSensors import *
-from motors import *
-from servos import *
+#from gSensors import *
+#from motors import *
+#from servos import *
 
 class robot(object):
 	"""Basically a generic robot"""
@@ -23,9 +23,9 @@ class robot(object):
 		"""
 
 		if vecCheck(numMPorts) and numSPorts==None and numAPorts==None and numDPorts==None:
-			self.config=numMPorts
+			self.config=tuple(numMPorts)
 		elif numSPorts!=None and numAPorts!=None and numDPorts!=None:
-			self.config=[numMPorts,numSPorts,numAPorts,numDPorts]
+			self.config=(numMPorts,numSPorts,numAPorts,numDPorts)
 		else:
 			print("invalid input(s)")
 			return None
@@ -37,23 +37,49 @@ class robot(object):
 		self.aSensors=[]  # array to store analog sensors
 		self.dSensors=[] # array to store digital sensors
 
+	def update(self):
+		pass
+
 	def draw(self):
 		pass
 
-	def addDriveMotors(self,lMot,rMot):
+	def addDriveMotors(self,lMot,rMot,dist):
 		pass
 
 	def addMotor(self,mot):
-		pass
+		if len(self.gMotors)+len(self.dMotors)<self.config[0]+1:
+			print("Not enough motor ports")
+			return -1
+		else:
+			self.gMotors.append(mot)
 
 	def addServo(self,servo):
-		pass
+		if servo.port not in range(self.config[1]):
+			print("Port not in range")
+			return -1
+		for i in range(len(self.servos)):
+			if servo.port==self.servos[i].port:
+				print("Port already used")
+				return -1
+		if len(self.servos)>=self.config[1]:
+			print("Not enough servo ports")
+			return -1
+		else:
+			self.servos.append(servo)
 
 	def addAnalogSensor(self,sens):
-		pass
+		if len(self.aSensors)<self.config[2]+1:
+			print("Not enough analog sensor ports")
+			return -1
+		else:
+			self.aSensors.append(sens)
 
 	def addDigitalSensor(self,sens):
-		pass
+		if len(self.dSensors)<self.config[3]+1:
+			print("Not enough digital sensor ports")
+			return -1
+		else:
+			self.dSensors.append(sens)
 
 	def analog(self,sensId):
 		try:
@@ -85,12 +111,20 @@ class robot(object):
 			print("Problem with sensor")
 			return False
 		pass
-	
+ 	def enableServo(self,servo):
+		if servo in self.servos:
+			self.servos[self.servos.index(servo)].enabled=True
+		else:
+			print("servo name not recognized")
 	def enableServos(self):
-		pass
+		for i in range(len(self.servos)):
+			self.servos[i].enabled=True
+		return 0
 	
 	def disableServos(self):
-		pass
+		for i in range(len(self.servos)):
+			self.servos[i].enabled=False
+		return 0
 	
 	def msleep(self,msec):
 		pass
