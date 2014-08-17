@@ -6,9 +6,9 @@ import math
 
 from utilFunctions import *
 
-#from gSensors import *
-#from motors import *
-#from servos import *
+from gSensors import analogSensor,digitalSensor
+from motors import motor
+from servos import servo
 
 class robot(object):
 	"""Basically a generic robot"""
@@ -47,35 +47,69 @@ class robot(object):
 		pass
 
 	def addMotor(self,mot):
-		if len(self.gMotors)+len(self.dMotors)<self.config[0]+1:
+		if type(mot)!=motor:
+			print("Invalid Argument")
+			return -1
+		if mot.port not in range(self.config[0]):
+			print("Port not in range")
+			return -1
+		bMot=self.dMotors+self.gMotors
+		for i in bMot:
+			if mot.port==i.port:
+				print("Port already used")
+				return -1
+		if len(self.gMotors)+len(self.dMotors)>=self.config[0]:
 			print("Not enough motor ports")
 			return -1
 		else:
 			self.gMotors.append(mot)
 
-	def addServo(self,servo):
-		if servo.port not in range(self.config[1]):
+	def addServo(self,ser):
+		if type(ser)!=servo:
+			print("Invalid Argument")
+			return -1
+		if ser.port not in range(self.config[1]):
 			print("Port not in range")
 			return -1
-		for i in range(len(self.servos)):
-			if servo.port==self.servos[i].port:
+		for i in self.servos:
+			if ser.port==i.port:
 				print("Port already used")
 				return -1
 		if len(self.servos)>=self.config[1]:
 			print("Not enough servo ports")
 			return -1
 		else:
-			self.servos.append(servo)
+			self.servos.append(ser)
 
 	def addAnalogSensor(self,sens):
-		if len(self.aSensors)<self.config[2]+1:
+		if type(sens)!=analogSensor:
+			print("Invalid Argument")
+			return -1
+		if sens.port not in range(self.config[2]):
+			print("Port not in range")
+			return -1
+		for i in self.aSensors:
+			if sens.port==i.port:
+				print('Port already used')
+				return -1
+		if len(self.aSensors)>=self.config[2]:
 			print("Not enough analog sensor ports")
 			return -1
 		else:
 			self.aSensors.append(sens)
 
 	def addDigitalSensor(self,sens):
-		if len(self.dSensors)<self.config[3]+1:
+		if type(sens)!=digitalSensor:
+			print("Invalid Argument")
+			return -1
+		if sens.port not in range(self.config[3]):
+			print("Port not in range")
+			return -1
+		for i in self.dSensors:
+			if sens.port==i.port:
+				print("Port already used")
+				return -1
+		if len(self.dSensors)>=self.config[3]:
 			print("Not enough digital sensor ports")
 			return -1
 		else:
@@ -125,6 +159,12 @@ class robot(object):
 		for i in range(len(self.servos)):
 			self.servos[i].enabled=False
 		return 0
+
+	def setServoPosition(self,servo,position):
+		pass
+
+	def moveServoToPosition(self,servo,position,step):
+		pass
 	
 	def msleep(self,msec):
 		pass

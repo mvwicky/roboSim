@@ -3,11 +3,14 @@ import sys
 import random
 import math
 
+import utilFunctions as utlF
+
 class motor(object):
 	"""Generic motor object"""
 	def __init__(self,port,wheelRad=0,ticks=1000,tolerance=0,sprite=None):
 		"""port:which port the motor is in
-		   wheelRad:the radius of the attached wheel (what if not a drive motor?)
+		   wheelRad:the radius of the attached wheel
+		      if not a drive motor: wheelRad=0
 		   ticks:number of ticks per revolution
 		   tolerance:
 		   sprite:path to the sprite
@@ -21,8 +24,10 @@ class motor(object):
 		#self.distPerTick
 		if sprite==None:
 			pass
-		elif sprite!=None:
+		elif sprite!=None and type(sprite)!=utlF.sprite:
 			pass
+		elif sprite!=None and type(sprite)==utlF.sprite:
+			self.sprite=sprite 
 		self.tolerance=tolerance
 
 	def update(self):
@@ -38,6 +43,12 @@ class motor(object):
 		pass
 	
 	def moveToPosition(self,velocity,position):
+		pass
+
+	def moveAngleDeg(self,velocity,theta):
+		pass
+
+	def moveAngleRad(self,velocity,theta):
 		pass
 
 	def getPosition(self):
@@ -59,3 +70,7 @@ class motor(object):
 		return self.moveRelativePosition(velocity,position)
 	def mtp(self,velocity,position):
 		return self.moveToPosition(velocity,position)
+	def mad(self,velocity,theta):
+		return self.moveAngleDeg(velocity,theta)
+	def mar(self,velocity,theta):
+		return self.moveAngleRad(velocity,theta)

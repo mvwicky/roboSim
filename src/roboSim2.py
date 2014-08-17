@@ -46,46 +46,57 @@ import interface
 
 def main():
 	print("Robo Sim v2")
-	print("")
-
-	window=interface.simScreen(1600,900)
-
+	
 	config=(4,4,6,6)
 
 	link=gRobot.robot(config)
 
-	print link.config
+	tSprite=sprite('../sprites/leverSprite.cfg')
+	gSprite=sprite('../sprites/genericSprite.cfg')
+	mSprite=sprite('../sprites/motorSprite.cfg')
 
 	servo0=servos.servo(0)
 	servo1=servos.servo(1)
 	servo2=servos.servo(2)
 	servo3=servos.servo(3)
 
+	motor0=motors.motor(0,0,1000,0,mSprite)
+	motor1=motors.motor(1,0,1000,0,mSprite)
+	motor2=motors.motor(2,0,1000,0,mSprite)
+	motor3=motors.motor(3,0,1000,0,mSprite)
+
 	link.addServo(servo3)
 	link.addServo(servo2)
 	link.addServo(servo0)
 	link.addServo(servo1)
 
-	for i in link.servos:
-		print i.port
-	
-	print '\n' ,  "Num Servos:" , len(link.servos)
+	link.addMotor(motor0)
+	link.addMotor(motor1)
+	link.addMotor(motor2)
+	link.addMotor(motor3)
 
-	print("")
+	print('\n')
 
 	try: 
 		robot.draw()
 	except NameError:
 		print("Not a valid bot")
 
-	while window.is_open:
-		window.clear(window.color)
+	try:
+		link.enableServos()
+	except NameError:
+		print("Not a valid bot")
 
-		for event in window.events:
-			if type(event)==sfml.CloseEvent:
-				window.close()
-
-		window.display()
+#	window=interface.simScreen(1600,900)
+#
+#	while window.is_open:
+#		window.clear(window.color)
+#
+#		for event in window.events:
+#			if type(event)==sfml.CloseEvent:
+#				window.close()
+#
+#		window.display()
 
 	print("")
 if __name__=='__main__':

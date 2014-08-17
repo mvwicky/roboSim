@@ -9,6 +9,7 @@ from math import atan
 from sfml import Vector2
 from sfml import Vector3
 from sfml import Color
+from sfml import Image
 
 class line(object):
 	"""class for storing two points"""
@@ -31,12 +32,17 @@ class configs(object):
 class sprite(object):
 	"""class that will store the image of a sprite as well
 	   as its bounding box and other info"""
-	def __init__(self,image,pos):
-		"""image: should be path to the image
-		   "pos: confusing"""
-		self.image=image
-		self.pos=pos
-		self.bounds=self.genBounds()
+	def __init__(self,cfg):
+		"""cfg: path to config file for sprite"""
+		c=open(cfg,'r')
+		cts=c.read()
+		c.close()
+		self.path=str(cts[cts.index("p")+5:cts.index("endl1")-1])
+		self.size=str(cts[cts.index("size")+5:cts.index("endl2")-1])
+		try:
+			self.image=Image.from_file(self.path)
+		except IOError:
+			print("Could not load image")
 	def genBounds(self):
 		pass
 

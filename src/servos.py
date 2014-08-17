@@ -20,16 +20,24 @@ class servo(object):
 		pass
 
 	def setPosition(self,position):
-		self.position=position
-		return 0
+		if not self.enabled:
+			print("Not enabled")
+			return -1
+		else:
+			self.position=position
+			return 0
 
 	def moveToPosition(self,pos,step):
-		if self.pos>pos:
-			while self.pos>pos:
-				self.pos-=step
-			return 0
-		elif self.pos<pos:
-			while self.pos<pos:
-				self.pos+=step
+		if not self.enabled:
+			print("Not enabled")
+			return -1
 		else:
-			return 0
+			if self.pos>pos:
+				while self.pos>pos:
+					self.pos-=step
+				return 0
+			elif self.pos<pos:
+				while self.pos<pos:
+					self.pos+=step
+			else:
+				return 0
