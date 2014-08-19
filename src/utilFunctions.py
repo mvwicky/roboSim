@@ -2,14 +2,11 @@ import os
 import sys
 import random
 
-from math import pi
-from math import sqrt
-from math import atan
+from math import pi,sqrt,atan
 
-from sfml import Vector2
-from sfml import Vector3
-from sfml import Color
-from sfml import Image
+from sfml import Vector2,Vector3,Color,Image
+
+from sfml import Sprite,Texture,Rectangle
 
 class line(object):
 	"""class for storing two points"""
@@ -29,20 +26,34 @@ class configs(object):
 	def __init__(self):
 		self.link=(4,4,6,4)
 
-class sprite(object):
+class sprite(Sprite):
 	"""class that will store the image of a sprite as well
 	   as its bounding box and other info"""
 	def __init__(self,cfg):
 		"""cfg: path to config file for sprite"""
-		c=open(cfg,'r')
-		cts=c.read()
-		c.close()
-		self.path=str(cts[cts.index("p")+5:cts.index("endl1")-1])
-		self.size=str(cts[cts.index("size")+5:cts.index("endl2")-1])
 		try:
-			self.image=Image.from_file(self.path)
+			c=open(cfg,'r')
+		except IOError:
+			print("File not found")
+			return None
+		cts=c.read()
+		c.close()	
+		try:
+			self.path=str(cts[cts.index("p")+5:cts.index("endl1")-1])
+			self.size=str(cts[cts.index("size")+5:cts.index("endl2")-1])
+		except ValueError:
+			print("Error with config file")
+			return None
+		try:
+			self.image=Texture.from_file(self.path)
 		except IOError:
 			print("Could not load image")
+			return None
+
+		super(sprite,self).__init__(self.image)
+
+		self.bounds=self.genBounds()
+	
 	def genBounds(self):
 		pass
 
@@ -124,7 +135,7 @@ def touching(sPoint1,ePoint1,sPoint2=None,ePoint2=None):
 		return -1
 
 def pointInLine(point,sPoint,ePoint=None):
-	"""tests wheter or not a point is touching a line"""
+	"""tests whether or not a point is touching a line"""
 	pass
 
 def pointIn(pVec,tL,bR):
@@ -168,7 +179,13 @@ def calcSlope(sPoint,ePoint=None):
 		return -1
 
 def calcAngleRad(sPoint1,ePoint1,sPoint2=None,ePoint2=None):
-	pass
+	if type(sPoint1)==line and type(ePoint1)==line and sPoint2==None and ePoint2==None:
+		pass
+	elif vecCheck(sPoint1) and vecCheck(ePoint1) and vecCheck(sPoint2) and vecCheck(ePoint2):
+		pass
+	else:
+		print("Invalid Argument(s)")
+		return -1
 
 def calcAngleDeg(sPoint1,ePoint1,sPoint2=None,ePoint2=None):
-	pass
+	return radToDeg(calcAngleRad(sPoint1,ePoint1,sPoint2,ePoint2))

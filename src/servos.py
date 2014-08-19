@@ -12,6 +12,7 @@ class servo(object):
 		self.position=position
 		self.enabled=False
 		self.sprite=sprite
+		self.context=None
 
 	def update(self):
 		pass

@@ -5,6 +5,7 @@ class analogSensor(object):
 		self.port=port
 		self.value=sample()
 		self.sprite=sprite
+		self.context=None
 
 	def update(self):
 		pass
@@ -38,10 +39,22 @@ class digitalSensor(object):
 class rangeFinder(analogSensor):
 	def __init__(self,port,sprite=None):
 		super(rangeFinder,self).__init__(port,sprite)
+	
 	def sample(self):
 	# some math function will define the value returned	
 		pass
 
+class potentiometer(analogSensor):
+	def __init__(self,port,sprite=None):
+		super(potentiometer,self).__init__(port,sprite)
+	
+	def sample(self):
+		pass
+
+
 class switch(digitalSensor):
 	def __init__(self,port,sprite=None):
 		super(switch,self).__init__(port,sprite)
+	
+	def sample(self):
+		pass

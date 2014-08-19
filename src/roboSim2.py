@@ -31,29 +31,30 @@ import interface
 # 6. brainstorm how to draw the bot
 #	a. have position as part of the members
 #	b. make sprites for each component?
-#		i. make  sprites
 # 7. write docs
 #	a. get better at LaTeX
 # 8. Make sure to commit
 #	a. at least make an effort at good commit messages
 # 9. write code to make courses/fields
 #	a. write how the bot will interact with these
-#
+#		i. pass in a 'context' (the window/scene) that updates
+#	b. have a config file that defines the scene
+# 10. make sprites
+#	a. button sprites
 # 
 #
 #
 #--------------------TODO--------------------#
 
 def main():
-	print("Robo Sim v2")
-	
-	config=(4,4,6,6)
+	print("Robo Sim v2 \n")
 
-	link=gRobot.robot(config)
-
-	tSprite=sprite('../sprites/leverSprite.cfg')
+	lSprite=sprite('../sprites/leverSprite.cfg')
 	gSprite=sprite('../sprites/genericSprite.cfg')
 	mSprite=sprite('../sprites/motorSprite.cfg')
+
+	config=(4,4,6,6)
+	link=gRobot.robot(config)
 
 	servo0=servos.servo(0)
 	servo1=servos.servo(1)
@@ -62,20 +63,18 @@ def main():
 
 	motor0=motors.motor(0,0,1000,0,mSprite)
 	motor1=motors.motor(1,0,1000,0,mSprite)
-	motor2=motors.motor(2,0,1000,0,mSprite)
-	motor3=motors.motor(3,0,1000,0,mSprite)
 
-	link.addServo(servo3)
-	link.addServo(servo2)
-	link.addServo(servo0)
-	link.addServo(servo1)
+	lMot=motors.motor(2,50,1000,0,mSprite)
+	rMot=motors.motor(3,50,1000,0,mSprite)
 
-	link.addMotor(motor0)
-	link.addMotor(motor1)
-	link.addMotor(motor2)
-	link.addMotor(motor3)
+	link.addMotors(motor0,motor1)
+	link.addServos(servo0,servo1,servo2,servo3)
 
-	print('\n')
+	link.addDriveMotors(lMot,rMot,10)
+
+	rScreen=interface.robotScreen()
+
+	print('')
 
 	try: 
 		robot.draw()
@@ -87,7 +86,7 @@ def main():
 	except NameError:
 		print("Not a valid bot")
 
-#	window=interface.simScreen(1600,900)
+	window=interface.simScreen(1600,900)
 #
 #	while window.is_open:
 #		window.clear(window.color)
@@ -96,8 +95,15 @@ def main():
 #			if type(event)==sfml.CloseEvent:
 #				window.close()
 #
+#		window.draw(lSprite)
+#
 #		window.display()
 
-	print("")
+	link.defineContext(window)
+
+	link.update()
+
+	print('')
+
 if __name__=='__main__':
 	main()

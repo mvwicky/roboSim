@@ -22,24 +22,30 @@ class motor(object):
 		self.lastSpeed=0
 		self.currentSpeed=0
 		#self.distPerTick
+		self.context=None
 		if sprite==None:
 			pass
 		elif sprite!=None and type(sprite)!=utlF.sprite:
-			pass
+			print("Invalid sprite")
 		elif sprite!=None and type(sprite)==utlF.sprite:
 			self.sprite=sprite 
 		self.tolerance=tolerance
 
 	def update(self):
-		pass
+		if self.context==None:
+			print("Context not defined")
+			return -1
+		else:
+			pass
 
 	def draw(self):
 		pass
 
 	def moveAtVelocity(self,velocity):
-		pass
+		self.currentSpeed=velocity
+		return 0
 	
-	def moveRelativePosition(self,velocity,position):
+	def moveRelativePosition(self,velocity,delta):
 		pass
 	
 	def moveToPosition(self,velocity,position):
